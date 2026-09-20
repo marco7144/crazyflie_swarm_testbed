@@ -1,0 +1,30 @@
+services:
+  swarm-dev:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: crazyflie-swarm-testbed:jazzy
+    container_name: crazyflie_swarm_dev
+    #user: "UID:GID"
+    user: "1000:1000"
+    network_mode: host
+    ipc: host
+    privileged: true
+    environment:
+      - DISPLAY=${DISPLAY}
+      - WAYLAND_DISPLAY=${WAYLAND_DISPLAY}
+      - XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
+      - PULSE_SERVER=/mnt/wslg/PulseServer
+      - LD_LIBRARY_PATH=/opt/ros/jazzy/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu
+      - LIBGL_ALWAYS_SOFTWARE=1
+      - GALLIUM_DRIVER=llvmpipe
+      - USER=prisma
+      - USERNAME=prisma
+    volumes:
+      # Mount ROS 2 workspace source code
+      - ./ros2_ws:/home/prisma/ros2_ws
+      # WSLg X11 and Wayland forwarding for GUI
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /mnt/wslg:/mnt/wslg:rw
+    stdin_open: true
+    tty: true

@@ -1,0 +1,6 @@
+repositories:
+  ros2_ws/src/crazyswarm2:
+    type: git
+    url: https://github.com/IMRCLab/crazyswarm2.git
+    version: main
+

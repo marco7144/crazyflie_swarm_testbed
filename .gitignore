@@ -1,0 +1,36 @@
+# ROS 2 build artifacts
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+
+# External cloned repositories (managed via dependencies.repos)
+ros2_ws/src/crazyswarm2/
+
+# Python cache & build files
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+.pytest_cache/
+
+# ROS 2 bags and recorded simulation data
+*.bag
+*.db3
+*.mcap
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating System files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# personal notes
+notes/
