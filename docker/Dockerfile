@@ -2,9 +2,6 @@
 # Pre-installs ROS 2 core middleware, standard messages, and RViz2.
 FROM osrf/ros:jazzy-desktop
 
-# Prevent interactive prompts during package installation
-ENV DEBIAN_FRONTEND=noninteractive
-
 # Install core build tools, libraries, swig, and debugging utilities
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -53,6 +50,25 @@ RUN git clone --branch 2025.02 --single-branch --recursive \
     && make include/generated/autoconf.h \
     && make python_wheel \
     && pip3 install --no-cache-dir --break-system-packages dist/*.whl
+
+# Install Cyberbotics Webots & ROS 2 Jazzy simulation packages
+# Ref: https://cyberbotics.com/doc/guide/installation-procedure
+# Ref: https://docs.ros.org/en/jazzy/Tutorials/Advanced/Simulators/Webots/Installation-Ubuntu.html
+RUN mkdir -p /etc/apt/keyrings \
+    && wget -q https://cyberbotics.com/Cyberbotics.asc -O /etc/apt/keyrings/Cyberbotics.asc \
+    && echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/Cyberbotics.asc] https://cyberbotics.com/debian binary-amd64/" > /etc/apt/sources.list.d/Cyberbotics.list \
+    && apt-get update && apt-get install -y --no-install-recommends \
+       xvfb \
+       webots \
+       ros-jazzy-webots-ros2 \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV WEBOTS_HOME=/usr/local/webots
+ENV PATH="${WEBOTS_HOME}:${PATH}"
+
+# Patch webots_ros2_driver to disable false-positive WSL check inside Linux container
+RUN sed -i "s/'microsoft-standard' in uname().release/False/g" \
+    /opt/ros/jazzy/lib/python3.12/site-packages/webots_ros2_driver/utils.py
 
 # Set up non-root user matching the host UID/GID (prisma, 1000:1000)
 # Note: Ubuntu 24.04 base image comes with a default 'ubuntu' user with UID 1000
