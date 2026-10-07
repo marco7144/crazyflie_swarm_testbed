@@ -34,3 +34,7 @@ desktop.ini
 
 # personal notes
 notes/
+
+.env
+
+ros2_ws/src/esempi

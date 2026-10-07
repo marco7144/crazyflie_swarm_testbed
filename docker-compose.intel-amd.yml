@@ -5,6 +5,7 @@ services:
       dockerfile: docker/Dockerfile
     image: crazyflie-swarm-testbed:jazzy
     container_name: crazyflie_swarm_dev
+    #user: "UID:GID"
     user: "1000:1000"
     network_mode: host
     ipc: host
@@ -15,13 +16,14 @@ services:
       - LIBGL_ALWAYS_SOFTWARE=0
       - USER=prisma
       - USERNAME=prisma
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
     volumes:
       # Mount ROS 2 workspace source code
       - ./ros2_ws:/home/prisma/ros2_ws
       # Native Linux X11 socket for GUI
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     devices:
-      # Direct access to DRI for GPU acceleration
+      # Direct access to DRI for Intel/AMD GPU acceleration
       - /dev/dri:/dev/dri
     stdin_open: true
     tty: true

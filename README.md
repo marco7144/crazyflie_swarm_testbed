@@ -2,6 +2,10 @@
 
 Testbed sperimentale e di simulazione per uno sciame di Crazyflie
 
+## Prerequisiti di Sistema (Host)
+1. **Docker Engine** e **Docker Compose** installati.
+2. *(Opzionale, consigliato per GPU NVIDIA)*: Driver ufficiali NVIDIA e [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html).
+
 ## Avvio Rapido
 
 ### 0. Download dipendenze esterne
@@ -12,42 +16,39 @@ cd crazyflie_swarm_testbed
 ```
 
 ### 1. Build dell'immagine Docker
-* **Windows 11 (WSL2):**
-  ```bash
-  docker compose build
-  ```
-* **Linux Nativo:**
-  ```bash
-  docker compose -f docker-compose.linux.yml build
-  ```
+* **PC con GPU NVIDIA:**
+```bash
+docker compose build
+```
+* **PC con GPU Intel / AMD Radeon:**
+```bash
+docker compose -f docker-compose.intel-amd.yml build
+```
 
 ### 2. Avvio del container
-* **Windows 11 (WSL2):**
-  ```bash
-  docker compose up -d
-  ```
-* **Linux Nativo:**
-  ```bash
-  docker compose -f docker-compose.linux.yml up -d
-  ```
+* **PC con GPU NVIDIA:**
+```bash
+docker compose up -d
+```
+* **PC con GPU Intel / AMD Radeon:**
+```bash
+docker compose -f docker-compose.intel-amd.yml up -d
+```
 
 ### 3. Accesso alla shell del container
-* **Windows 11 (WSL2):**
-  ```bash
-  docker compose exec swarm-dev bash
-  ```
-* **Linux Nativo:**
-  ```bash
-  docker compose -f docker-compose.linux.yml exec swarm-dev bash
-  ```
-* **Comando rapido universale (funziona sia su Windows che su Linux):**
-  ```bash
-  docker exec -it crazyflie_swarm_dev bash
-  ```
+```bash
+docker compose exec swarm-dev bash
+```
+oppure:
+```bash
+docker exec -it crazyflie_swarm_dev bash
+```
 
 ### 4. Compilazione del Workspace ROS 2
 All'interno del container (da eseguire la prima volta o dopo modifiche al codice):
 ```bash
+sudo apt update
+rosdep install --from-paths src --ignore-src -y
 colcon build --symlink-install
 source install/setup.bash
 ```
