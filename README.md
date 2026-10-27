@@ -75,3 +75,35 @@ All'interno del container:
   ```bash
   ros2 launch crazyflie_examples launch.py script:=hello_world backend:=sim mocap:=False teleop:=False rviz:=True
   ```
+
+* **Test Volo Crazysim - MuJoCo**
+  - **Avvio firmware Crazyflie**
+    ```bash
+    cd /home/prisma/CrazySim/crazyflie-firmware
+    bash tools/crazyflie-simulation/simulator_files/mujoco/launch/sitl_multiagent_square.sh -n 4 -m cf2x_T350
+    ```
+  - **In un secondo terminale del container**
+    ```bash
+    source install/setup.bash
+    ros2 launch crazyflie launch.py backend:=cflib mocap:=False teleop:=False crazyflies_yaml_file:=/home/prisma/ros2_ws/crazyflies_crazysim.yaml
+    ```
+  - **In un terzo terminale del container**
+    ```bash
+    python3 /home/prisma/ros2_ws/test_swarm_crazyswarm2.py
+    ```
+
+* **Test Volo Crazysim - Gazebo**
+  - **Avvio firmware Crazyflie**
+    ```bash
+    cd /home/prisma/CrazySim/crazyflie-firmware
+    bash tools/crazyflie-simulation/simulator_files/gazebo/launch/sitl_multiagent_square.sh -n 4
+    ```
+  - **In un secondo terminale del container**
+    ```bash
+    source install/setup.bash
+    ros2 launch crazyflie launch.py backend:=cflib mocap:=False teleop:=False crazyflies_yaml_file:=/home/prisma/ros2_ws/crazyflies_crazysim.yaml
+    ```
+  - **In un terzo terminale del container**
+    ```bash
+    python3 /home/prisma/ros2_ws/test_swarm_crazyswarm2.py
+    ```
