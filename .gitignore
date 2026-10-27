@@ -6,6 +6,7 @@ ros2_ws/log/
 # External cloned repositories (managed via dependencies.repos)
 ros2_ws/src/crazyswarm2/
 CrazySim/
+crazyflow/
 
 # Python cache & build files
 **/__pycache__/
@@ -14,6 +15,7 @@ CrazySim/
 *.so
 *.egg-info/
 .pytest_cache/
+ros2_ws/cache/
 
 # ROS 2 bags and recorded simulation data
 *.bag

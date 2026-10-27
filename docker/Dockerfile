@@ -42,6 +42,10 @@ RUN pip3 install --no-cache-dir --break-system-packages --ignore-installed PyYAM
     scipy \
     mujoco
 
+# Install Crazyflow with GPU support (JAX with CUDA 12)
+# Ref: https://github.com/learnsyslab/crazyflow
+RUN pip3 install --no-cache-dir --break-system-packages "crazyflow[gpu]"
+
 # Step 6 from Crazyswarm2 official guide (Software-in-the-loop simulation):
 # Ref: https://imrclab.github.io/crazyswarm2/installation.html
 # Pinned to release 2025.02 as recommended by Crazyswarm2 for maximum compatibility

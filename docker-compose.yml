@@ -24,6 +24,8 @@ services:
       - ./ros2_ws:/home/prisma/ros2_ws
       # Mount CrazySim simulation framework and SITL firmware
       - ./CrazySim:/home/prisma/CrazySim
+      # Mount Crazyflow simulator
+      - ./crazyflow:/home/prisma/crazyflow
       # Native Linux X11 socket for GUI
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     deploy:
