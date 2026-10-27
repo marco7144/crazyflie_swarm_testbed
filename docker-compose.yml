@@ -11,7 +11,7 @@ services:
     ipc: host
     privileged: true
     environment:
-      - DISPLAY=${DISPLAY}
+      - DISPLAY=${DISPLAY:-:1}
       - XDG_RUNTIME_DIR=/tmp/runtime-prisma
       - LIBGL_ALWAYS_SOFTWARE=0
       - USER=prisma
@@ -22,6 +22,8 @@ services:
     volumes:
       # Mount ROS 2 workspace source code
       - ./ros2_ws:/home/prisma/ros2_ws
+      # Mount CrazySim simulation framework and SITL firmware
+      - ./CrazySim:/home/prisma/CrazySim
       # Native Linux X11 socket for GUI
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     deploy:

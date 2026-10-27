@@ -1,0 +1,14 @@
+diff --git a/src/modules/src/stabilizer.c b/src/modules/src/stabilizer.c
+index 28cb48e..4e9b922 100644
+--- a/src/modules/src/stabilizer.c
++++ b/src/modules/src/stabilizer.c
+@@ -275,7 +275,7 @@ static void applyAxis3fLpf(lpf2pData *data, Axis3f* in)
+ static void stabilizerTask(void* param)
+ {
+   stabilizerStep_t stabilizerStep;
+-  uint32_t lastWakeTime;
++  TickType_t lastWakeTime;
+   vTaskSetApplicationTaskTag(0, (void*)TASK_STABILIZER_ID_NBR);
+ 
+   //Wait for the system to be fully started to start stabilization loop
+

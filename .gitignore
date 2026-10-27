@@ -5,6 +5,7 @@ ros2_ws/log/
 
 # External cloned repositories (managed via dependencies.repos)
 ros2_ws/src/crazyswarm2/
+CrazySim/
 
 # Python cache & build files
 **/__pycache__/

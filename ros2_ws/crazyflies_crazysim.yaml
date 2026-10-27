@@ -1,0 +1,64 @@
+fileversion: 3
+
+robots:
+  cf_01:
+    enabled: true
+    is_sim: true
+    uri: udp://127.0.0.1:19850
+    initial_position: [0.0, 0.0, 0.0]
+    type: cf21
+
+  cf_02:
+    enabled: true
+    is_sim: true
+    uri: udp://127.0.0.1:19851
+    initial_position: [1.0, 0.0, 0.0]
+    type: cf21
+
+  cf_03:
+    enabled: true
+    is_sim: true
+    uri: udp://127.0.0.1:19852
+    initial_position: [0.0, 1.0, 0.0]
+    type: cf21
+
+  cf_04:
+    enabled: true
+    is_sim: true
+    uri: udp://127.0.0.1:19853
+    initial_position: [1.0, 1.0, 0.0]
+    type: cf21
+
+robot_types:
+  cf21:
+    motion_capture:
+      tracking: "librigidbodytracker"
+      marker: default_single_marker
+      dynamics: default
+    big_quad: false
+    battery:
+      voltage_warning: 3.8  # V
+      voltage_critical: 3.7 # V
+
+all:
+  firmware_logging:
+    enabled: true
+    default_topics:
+      pose:
+        frequency: 1 # Hz
+      status:
+        frequency: 1 # Hz
+  firmware_params:
+    commander:
+      enHighLevel: 1
+    stabilizer:
+      estimator: 2 # 1: complementary, 2: kalman
+      controller: 1 # 1: PID , 2: mellinger
+    locSrv:
+      extPosStdDev: 0.01 
+      extQuatStdDev: 0.5e-1
+  reference_frame: "world"
+  broadcasts:
+    num_repeats: 15
+    delay_between_repeats_ms: 1
+
