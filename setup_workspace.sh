@@ -18,6 +18,14 @@ else
     echo "CrazySim is already present."
 fi
 
+#Cloning Crazyflow repository
+if [ ! -d "crazyflow" ]; then
+    echo "Cloning crazyflow repository."
+    git clone https://github.com/learnsyslab/crazyflow.git crazyflow
+else
+    echo "crazyflow is already present."
+fi
+
 #fix for 64 bit systems
 if [ -d "CrazySim/crazyflie-firmware" ] && [ -f "patches/crazysim_64bit_fix.patch" ]; then
     echo "Verifica patch"
@@ -29,17 +37,6 @@ if [ -d "CrazySim/crazyflie-firmware" ] && [ -f "patches/crazysim_64bit_fix.patc
         echo "Patch gia' applicata o non necessaria."
     fi
     cd ../..
-fi
-
-#building crazyflie-firmware
-if [ -d "CrazySim/crazyflie-firmware" ] && [ ! -f "CrazySim/crazyflie-firmware/sitl_make/build/cf2" ]; then
-    echo "Compilazione firmware SITL (cf2)..."
-    mkdir -p CrazySim/crazyflie-firmware/sitl_make/build
-    cd CrazySim/crazyflie-firmware/sitl_make/build
-    cmake ..
-    make -j$(nproc) all
-    cd ../../../..
-    echo "Firmware SITL (cf2) compilato con successo."
 fi
 
 echo "Workspace setup completed successfully."

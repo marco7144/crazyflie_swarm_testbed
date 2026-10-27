@@ -46,12 +46,22 @@ docker exec -it crazyflie_swarm_dev bash
 
 ### 4. Compilazione del Workspace ROS 2
 All'interno del container (da eseguire la prima volta o dopo modifiche al codice):
-```bash
-sudo apt update
-rosdep install --from-paths src --ignore-src -y
-colcon build --symlink-install
-source install/setup.bash
-```
+
+* **Compilazione firmware SITL CrazySim (cf2):**
+  ```bash
+  mkdir -p /home/prisma/CrazySim/crazyflie-firmware/sitl_make/build
+  cd /home/prisma/CrazySim/crazyflie-firmware/sitl_make/build
+  cmake .. && make -j$(nproc) all
+  ```
+
+* **Compilazione Workspace ROS 2:**
+  ```bash
+  cd /home/prisma/ros2_ws
+  sudo apt update
+  rosdep install --from-paths src --ignore-src -y
+  colcon build --symlink-install
+  source install/setup.bash
+  ```
 
 ### 5. Test e Avvio Simulazioni
 All'interno del container:
