@@ -68,6 +68,15 @@ RUN mkdir -p /etc/apt/keyrings \
 ENV WEBOTS_HOME=/usr/local/webots
 ENV PATH="${WEBOTS_HOME}:${PATH}"
 
+# Install Open Robotics Gazebo Harmonic (Gz 8) & ROS 2 Jazzy integration
+# Ref: https://gazebosim.org/docs/harmonic/install_ubuntu/
+RUN curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] https://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" > /etc/apt/sources.list.d/gazebo-stable.list \
+    && apt-get update && apt-get install -y --no-install-recommends \
+       gz-harmonic \
+       ros-jazzy-ros-gz \
+    && rm -rf /var/lib/apt/lists/*
+
 # Patch webots_ros2_driver to disable false-positive WSL check inside Linux container
 RUN sed -i "s/'microsoft-standard' in uname().release/False/g" \
     /opt/ros/jazzy/lib/python3.12/site-packages/webots_ros2_driver/utils.py
