@@ -44,7 +44,7 @@ oppure:
 docker exec -it crazyflie_swarm_dev bash
 ```
 
-### 4. Compilazione del Workspace ROS 2
+### 4. Compilazione all'interno del container
 All'interno del container (da eseguire la prima volta o dopo modifiche al codice):
 
 * **Compilazione firmware SITL CrazySim (cf2):**
