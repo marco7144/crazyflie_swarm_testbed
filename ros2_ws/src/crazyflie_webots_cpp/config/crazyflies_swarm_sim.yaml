@@ -1,0 +1,49 @@
+# Configurazione 4 droni per arena_prisma.wbt in Webots
+fileversion: 3
+
+robots:
+  cf_01:
+    enabled: true
+    uri: udp://127.0.0.1:19850
+    initial_position: [0.0, 0.0, 0.0]
+    type: cf21
+  cf_02:
+    enabled: true
+    uri: udp://127.0.0.1:19851
+    initial_position: [1.0, 0.0, 0.0]
+    type: cf21
+  cf_03:
+    enabled: true
+    uri: udp://127.0.0.1:19852
+    initial_position: [0.0, 1.0, 0.0]
+    type: cf21
+  cf_04:
+    enabled: true
+    uri: udp://127.0.0.1:19853
+    initial_position: [1.0, 1.0, 0.0]
+    type: cf21
+
+robot_types:
+  cf21:
+    motion_capture:
+      enabled: true
+      marker: default_single_marker
+      dynamics: default
+    big_quad: false
+    battery:
+      voltage_warning: 3.8
+      voltage_critical: 3.7
+
+all:
+  firmware_logging:
+    enabled: false
+  firmware_params:
+    commander:
+      enHighLevel: 1
+    stabilizer:
+      estimator: 2
+      controller: 1
+  broadcasts:
+    num_repeats: 15
+    delay_between_repeats_ms: 1
+

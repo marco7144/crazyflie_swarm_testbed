@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<robot name="Crazyflie Webots C++">
+    <webots>
+        <plugin type="crazyflie_webots_cpp::CrazyflieDriver" />
+    </webots>
+</robot>

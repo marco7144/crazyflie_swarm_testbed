@@ -1,0 +1,70 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/bitcraze/crazyflie/protos/Crazyflie.proto"
+
+WorldInfo {
+  info [
+    "PRISMA Lab Flying Arena Testbed - Universita degli Studi di Napoli Federico II"
+    "Crazyflie Swarm Simulation Testbed with ROS 2 Jazzy"
+  ]
+  title "PRISMA Flying Arena"
+  basicTimeStep 16
+  optimalThreadCount 4
+  coordinateSystem "ENU"
+}
+
+Viewpoint {
+  orientation -0.32 0.35 0.88 1.85
+  position 0.5 -2.9 2.2
+}
+
+Background {
+  skyColor [
+    0.18 0.20 0.24
+  ]
+}
+
+DirectionalLight {
+  ambientIntensity 0.6
+  direction 0.2 0.4 -1
+  intensity 1.2
+}
+
+PointLight {
+  attenuation 0 0 1
+  intensity 1.5
+  location 0.5 0.5 3
+}
+
+RectangleArena {
+  translation 0.5 0.5 0
+  floorSize 4 4
+  floorTileSize 0.5 0.5
+  wallHeight 0.15
+}
+
+Crazyflie {
+  translation 0 0 0.015
+  name "cf_01"
+  controller "<extern>"
+}
+
+Crazyflie {
+  translation 1 0 0.015
+  name "cf_02"
+  controller "<extern>"
+}
+
+Crazyflie {
+  translation 0 1 0.015
+  name "cf_03"
+  controller "<extern>"
+}
+
+Crazyflie {
+  translation 1 1 0.015
+  name "cf_04"
+  controller "<extern>"
+}
+

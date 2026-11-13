@@ -1,0 +1,9 @@
+<library path="crazyflie_webots_cpp">
+  <!-- The `type` attribute is a reference to the plugin class. -->
+  <!-- The `base_class_type` attribute is always `webots_ros2_driver::PluginInterface`. -->
+  <class type="crazyflie_webots_cpp::CrazyflieDriver" base_class_type="webots_ros2_driver::PluginInterface">
+    <description>
+      Plugin C++ Webots ROS 2 per il controllo fisico del Crazyflie 2.1
+    </description>
+  </class>
+</library>

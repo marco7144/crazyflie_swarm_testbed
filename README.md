@@ -107,3 +107,17 @@ All'interno del container:
     ```bash
     python3 /home/prisma/ros2_ws/test_swarm_crazyswarm2.py
     ```
+
+* **Test Volo Webots**
+  - **Avvio simulatore Webots + Plugin C++ + Crazyswarm2 Server (4 droni)**
+    ```bash
+    source install/setup.bash
+    ros2 launch crazyflie_webots_cpp arena_launch.py crazyflies_yaml_file:=/home/prisma/ros2_ws/crazyflies_crazysim.yaml
+    ```
+  - **In un secondo terminale del container (script compatibili anche con Crazysim)**
+    ```bash
+    source install/setup.bash
+    python3 /home/prisma/ros2_ws/test_swarm_crazyswarm2.py
+    # Oppure test minimale decollo/hovering/atterraggio:
+    python3 /home/prisma/ros2_ws/test_takeoff_land.py
+    ```
