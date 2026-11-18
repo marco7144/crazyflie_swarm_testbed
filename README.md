@@ -77,11 +77,17 @@ All'interno del container:
   ```
 
 * **Test Volo Crazysim - MuJoCo**
-  - **Avvio firmware Crazyflie**
-    ```bash
-    cd /home/prisma/CrazySim/crazyflie-firmware
-    bash tools/crazyflie-simulation/simulator_files/mujoco/launch/sitl_multiagent_square.sh -n 4 -m cf2x_T350
-    ```
+  - **Avvio firmware Crazyflie** (modelli supportati: `cf2x_L250`, `cf2x_T350`, `cf2x_P250`, `cf21B_500`)
+    - Modello **Crazyflie 2.x Standard** (`cf2x_L250`):
+      ```bash
+      cd /home/prisma/CrazySim/crazyflie-firmware
+      bash tools/crazyflie-simulation/simulator_files/mujoco/launch/sitl_multiagent_square.sh -n 4 -m cf2x_L250
+      ```
+    - Modello **Crazyflie 2.1 Brushless** (`cf21B_500`):
+      ```bash
+      cd /home/prisma/CrazySim/crazyflie-firmware
+      bash tools/crazyflie-simulation/simulator_files/mujoco/launch/sitl_multiagent_square.sh -n 4 -m cf21B_500
+      ```
   - **In un secondo terminale del container**
     ```bash
     source install/setup.bash
@@ -124,3 +130,14 @@ All'interno del container:
     source install/setup.bash
     python3 /home/prisma/ros2_ws/test_takeoff_land.py
     ```
+
+* **Test Volo Crazyflow (MuJoCo)**
+  - **Esempi ufficiali (1 drone in hover / sciame di 4 droni a spirale)**
+    ```bash
+    python3 /home/prisma/crazyflow/examples/control/hover.py
+    ```
+    oppure:
+    ```bash
+    python3 /home/prisma/crazyflow/examples/control/spiral.py
+    ```
+  *(Di default gli esempi usano il Crazyflie 2.1 Brushless `cf21B_500`; negli script è possibile selezionare altri modelli come `cf2x_L250` tramite `Sim(drone=...)`. Altri esempi ufficiali sono disponibili in `/home/prisma/crazyflow/examples/`.)*
