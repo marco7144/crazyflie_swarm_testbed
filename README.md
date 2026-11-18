@@ -118,6 +118,9 @@ All'interno del container:
     ```bash
     source install/setup.bash
     python3 /home/prisma/ros2_ws/test_swarm_crazyswarm2.py
-    # Oppure test minimale decollo/hovering/atterraggio:
+    ```
+    Oppure test decollo/atterraggio:
+    ```bash
+    source install/setup.bash
     python3 /home/prisma/ros2_ws/test_takeoff_land.py
     ```
