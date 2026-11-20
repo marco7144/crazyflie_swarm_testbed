@@ -1,0 +1,4 @@
+[submodule "ros2_ws/src/motion_capture_tracking"]
+	path = ros2_ws/src/motion_capture_tracking
+	url = https://github.com/marco7144/motion_capture_tracking.git
+	branch = ros2
