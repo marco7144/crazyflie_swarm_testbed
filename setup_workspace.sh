@@ -39,4 +39,26 @@ if [ -d "CrazySim/crazyflie-firmware" ] && [ -f "patches/crazysim_64bit_fix.patc
     cd ../..
 fi
 
+# Configurazione permessi USB:
+# Ref: https://www.bitcraze.io/documentation/repository/crazyflie-lib-python/0.1.34/installation/usb_permissions/
+UDEV_RULE_FILE="/etc/udev/rules.d/99-bitcraze.rules"
+if [ ! -f "$UDEV_RULE_FILE" ]; then
+    echo "Configurazione permessi USB Bitcraze su host Linux"
+    sudo groupadd -f plugdev
+    sudo usermod -a -G plugdev "$USER"
+    cat <<EOF | sudo tee "$UDEV_RULE_FILE" > /dev/null
+# Crazyradio (normal operation)
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1915", ATTRS{idProduct}=="7777", MODE="0664", GROUP="plugdev"
+# Bootloader
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1915", ATTRS{idProduct}=="0101", MODE="0664", GROUP="plugdev"
+# Crazyflie (over USB)
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", MODE="0664", GROUP="plugdev"
+EOF
+    sudo udevadm control --reload-rules && sudo udevadm trigger
+    echo "Regole udev Bitcraze installate con successo."
+    echo "NOTA: Se è la prima volta che configuri la Crazyradio, effettua Logout e Login (o riavvia il PC) per rendere effettivi i permessi del gruppo plugdev."
+else
+    echo "Regole udev Bitcraze già presenti ($UDEV_RULE_FILE)."
+fi
+
 echo "Workspace setup completed successfully."
