@@ -1,0 +1,96 @@
+# Shared configuration across all simulator profiles (YAML extension field)
+# Ref: https://docs.docker.com/reference/compose-file/extension/
+# Ref: https://docs.docker.com/compose/how-tos/profiles/
+x-common: &common
+  user: "1000:1000"
+  network_mode: host
+  ipc: host
+  privileged: true
+  environment:
+    - DISPLAY=${DISPLAY:-:1}
+    - XDG_RUNTIME_DIR=/tmp/runtime-prisma
+    - LIBGL_ALWAYS_SOFTWARE=0
+    - USER=prisma
+    - USERNAME=prisma
+    - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+    - NVIDIA_VISIBLE_DEVICES=all
+    - NVIDIA_DRIVER_CAPABILITIES=all
+  volumes:
+    # Mount ROS 2 workspace source code
+    - ../../ros2_ws:/home/prisma/ros2_ws
+    # Mount CrazySim simulation framework and SITL firmware
+    - ../../CrazySim:/home/prisma/CrazySim
+    # Mount Crazyflow simulator
+    - ../../crazyflow:/home/prisma/crazyflow
+    # Native Linux X11 socket for GUI
+    - /tmp/.X11-unix:/tmp/.X11-unix:rw
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia
+            count: all
+            capabilities: [ gpu ]
+  stdin_open: true
+  tty: true
+
+services:
+  base:
+    <<: *common
+    profiles: ["base"]
+    build:
+      context: ../..
+      dockerfile: docker/multistage/Dockerfile
+      target: base
+    image: crazyflie-swarm-testbed:base
+    container_name: crazyflie_swarm_base
+
+  webots:
+    <<: *common
+    profiles: ["webots"]
+    build:
+      context: ../..
+      dockerfile: docker/multistage/Dockerfile
+      target: webots
+    image: crazyflie-swarm-testbed:webots
+    container_name: crazyflie_swarm_webots
+
+  gazebo:
+    <<: *common
+    profiles: ["gazebo"]
+    build:
+      context: ../..
+      dockerfile: docker/multistage/Dockerfile
+      target: gazebo
+    image: crazyflie-swarm-testbed:gazebo
+    container_name: crazyflie_swarm_gazebo
+
+  mujoco:
+    <<: *common
+    profiles: ["mujoco"]
+    build:
+      context: ../..
+      dockerfile: docker/multistage/Dockerfile
+      target: mujoco
+    image: crazyflie-swarm-testbed:mujoco
+    container_name: crazyflie_swarm_mujoco
+
+  crazyflow:
+    <<: *common
+    profiles: ["crazyflow"]
+    build:
+      context: ../..
+      dockerfile: docker/multistage/Dockerfile
+      target: crazyflow
+    image: crazyflie-swarm-testbed:crazyflow
+    container_name: crazyflie_swarm_crazyflow
+
+  full:
+    <<: *common
+    profiles: ["full"]
+    build:
+      context: ../..
+      dockerfile: docker/multistage/Dockerfile
+      target: full
+    image: crazyflie-swarm-testbed:full
+    container_name: crazyflie_swarm_full
